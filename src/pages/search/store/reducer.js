@@ -3,7 +3,8 @@ import * as actionTypes from './constants';
 const defaultState = {
     hotList: [],
     searchList: [],
-    enterLoading: false
+    enterLoading: false,
+    didInvalidate:false
 }
 export default (state = defaultState, action) => {
     switch (action.type) {

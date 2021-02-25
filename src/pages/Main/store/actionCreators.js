@@ -36,7 +36,7 @@ export const getMainData = () => {
 
 };
 
-//下标改变 访问的页面
+//下标改变 访问的页面,
 export const changeIndexData = (newIndex) => {
     return (dispatch) => {
         // console.log("成功进去changeIndexData-----------");
@@ -74,22 +74,20 @@ export const changeListOffset = (data) => ({
     data
 });
 
-//滑到底部数据请求 
-export const refreshMoreMainList = () => {
-    return (dispatch, getState) => {
-        const offset = getState().main.listOffset;
-        const ListItemData = getState().main.ListItemData;
-        reqgetmainListoffset(offset).then(res => {
-            // console.log("进入了.........res", res, "ListItemData", ListItemData)
-            const data = [...ListItemData, ...res.data.data];
-            // console.log("进入了.........data", data)
-            dispatch(changeListItemData(data));
-            dispatch(changePullUpLoading(false));
-            dispatch(changeListOffset(data.length));
-        }).catch(() => {
-            console.log('热门数据获取失败');
-            dispatch(changePullUpLoading(false));
+//滑到底部数据请求 ，异步请求
+export const refreshMoreMainList = () => (dispatch, getState) => {
+    const offset = getState().main.listOffset;
+    const ListItemData = getState().main.ListItemData;
+    reqgetmainListoffset(offset).then(res => {
+        console.log("进入了.........res", res, "ListItemData", ListItemData)
+        const data = [...ListItemData, ...(res.data.data || [])];
+        console.log("进入了.........data", data)
+        dispatch(changeListItemData(data));
+        dispatch(changePullUpLoading(false));
+        dispatch(changeListOffset(data.length));
+    }).catch(() => {
+        console.log('热门数据获取失败');
+        dispatch(changePullUpLoading(false));
 
-        });
-    }
+    });
 };

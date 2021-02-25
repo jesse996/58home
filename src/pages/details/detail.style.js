@@ -92,7 +92,7 @@ export const Discount = styled.div `
     background-color:white;
     display:flex;
     align-items:center ;
-    .icon{
+    .micon{
         position: absolute;
         left:0.4rem;
         font-size:0.29rem;

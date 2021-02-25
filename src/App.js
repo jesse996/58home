@@ -1,9 +1,9 @@
 import React from 'react';
-import { BrowserRouter,HashRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
-import {renderRoutes} from 'react-router-config';
+import { renderRoutes } from 'react-router-config';
 
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import routes from './routes/index.js';
 import store from './store/index';
 // import My from './pages/my/my';
@@ -19,22 +19,23 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-      <HashRouter>
-      {/* <Route  path='/main' component={Main} /> */}
+        <HashRouter>
+          {/* <Route  path='/main' component={Main} /> */}
 
-        {/* <Switch>
+          {/* <Switch>
           <Route  path='/server' component={Server} />
           <Route  path='/info' component={Info} />
           <Route  path='/my' component={My} />
           <Redirect to='/main' />
         </Switch> */}
-        {renderRoutes(routes)}
-        {/* <Tabbuttom /> */}
-      </HashRouter>
-    </div>
+          {renderRoutes(routes)}
+          {/* <Tabbuttom /> */}
+        </HashRouter>
+      </div>
     </Provider>
-    
+
   );
 }
+
 
 export default App;

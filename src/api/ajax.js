@@ -18,6 +18,7 @@ export default function Ajax(url, data = {}, type) {
             resolve(response);
         }).catch((error) => {
             console.error("数据请求异常！", error)
+            rejet(error)
         })
     })
 

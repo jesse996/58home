@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const DetailPageTitle = styled.div `
     border-radius: .12rem;
-    margin:0.35rem 0;
+    margin:1.35rem 0;
     width: 100%;
     background: #fff;
     .detail-title{

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-export const Head = styled.div `
+export const Head = styled.div`
     position:fixed;
     display:flex;
     justify-content:space-between;
@@ -14,9 +14,11 @@ export const Head = styled.div `
     .leftimg{
         width:0.7rem;
         margin-left:0.6rem;
+        height:0.7rem;
     }
     .share{
         width:0.7rem;
+        height:.7rem;
         margin-right:0.6rem;
         padding:1px;
         border:1px solid #d6d7d7;

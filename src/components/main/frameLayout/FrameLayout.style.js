@@ -68,6 +68,12 @@ export const FrameImgView = styled.div `
     justify-content:space-between;
     padding-top:.5278rem /* 57/108 */;
     box-sizing:border-box;
+        .frame-imgView{
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+            align-items:center;
+        }
         & .frame-imgView__title{
             height:.3981rem /* 43/108 */;
             font-size: .3981rem /* 43/108 */;
@@ -92,7 +98,7 @@ export const More = styled.div `
         display:flex;
         padding: 0 0 .537rem /* 58/108 */ .3056rem /* 33/108 */;
     & .more-left{
-            width: 1.75rem /* 189/108 */;
+            width: 97px /* 189/108 */;
             font-family: PingFangSC-medium;
             font-weight: bold;
             color: #292D33;
@@ -119,11 +125,13 @@ export const More = styled.div `
             color:#878e94;
         } 
     & .more-right{
-        width: 7.1574rem /* 773/108 */;
+        width: 400px /* 773/108 */;
         display:flex;
         overflow-x: scroll;
+        white-space: nowrap;
     }
         & .more-right__box{
+            display: inline-block;
             margin-top: .3426rem /* 37/108 */;
             border-radius:10px;
             margin-right:10px;

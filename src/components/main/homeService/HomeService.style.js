@@ -38,7 +38,6 @@ export const Top = styled.div`
     & .homeservice-slogan{
       width: 2.6759rem /* 289/108 */;
       color: #868c9b;
-      height: .287rem /* 31/108 */;
     }
 `;
 export const Item = styled.ul`

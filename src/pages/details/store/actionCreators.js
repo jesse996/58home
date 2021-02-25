@@ -41,7 +41,7 @@ export const changeorderData = (data) => {
 
 const init = () => {
     let boxdata = [];
-    StorageUtils.getUserorder();
+    // StorageUtils.getUserorder();
     const data = StorageUtils.getUserorder() ? StorageUtils.getUserorder().split(';') : [];
     for (let key in data) {
         var obj = eval("(" + data[key] + ")");

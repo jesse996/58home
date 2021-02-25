@@ -1,6 +1,7 @@
 .server {
   display: flex;
-  height: 15.093rem /* 1800/108 */ /* 1700/108 */ /* 2000/108 */ /* 1000/108 */;
+  /* height: 15.093rem; */
+  height: calc(100vh - 2.6668rem);
   overflow: hidden;
 }
 .server .left {
@@ -40,7 +41,8 @@
   overflow-y: scroll;
 }
 .server .right li {
-  height: 15.093rem /* 1630/108 */ /* 1650/108 */ /* 1600/108 */ /* 1700/108 */;
+  /* height: 15.093rem; */
+  margin-bottom: 2.5rem;
   font-size: 0;
 }
 .server .right li .right-top__img {

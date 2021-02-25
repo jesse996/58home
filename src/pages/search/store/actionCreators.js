@@ -4,7 +4,7 @@ const changeHotKeyWords = (data) => ({
     type: SET_HOT_KEYWRODS,
     data: data
 });
-const changeSearchResult = (data) => ({
+export const changeSearchResult = (data) => ({
     type: SET_RESULT_LIST,
     data: data
 });
@@ -23,11 +23,21 @@ export const getHotKeyWords = () => {
 };
 export const getSearchList = (query) => {
     return dispatch => {
-        reqsearchkeywords(query).then(data => {
-            if (!data) return;
-            let res = data.data.data.searchData || [];
-            dispatch(changeSearchResult(res));
+        dispatch(changeEnterLoading(true))
+        reqsearchkeywords(query).then(({ data }) => {
+            // console.log(data)
+            if (data.success && data.data.searchData.length > 0) {
+                let res = data.data.searchData || [];
+                dispatch(changeSearchResult(res));
+            }
             dispatch(changeEnterLoading(false));
+        }).catch(e => {
+            console.log('error: ', e)
+            // dispatch(changeEnterLoading(false));
         })
+        // .finally(() => {
+        //     dispatch(changeEnterLoading(false));
+        // })
+
     }
 };

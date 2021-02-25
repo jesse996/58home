@@ -1,141 +1,154 @@
-import React, { useState, useEffect,  useCallback } from 'react'
-import Scroll from './../../baseUI/scroll/index';
-import  {forceCheck} from 'react-lazyload';
+import React, { useState, useEffect, useCallback } from 'react'
+import Scroll from './../../baseUI/scroll/index'
+import { forceCheck } from 'react-lazyload'
 
-import {  ShortcutWrapper, HotKey,List } from './style';
-import SearchBox from '../../baseUI/search-box/index';
+import { ShortcutWrapper, HotKey, List } from './style'
+import SearchBox from '../../baseUI/search-box/index'
 import { connect } from 'react-redux'
-import * as actionTypes  from './store/actionCreators'
+import * as actionTypes from './store/actionCreators'
 
 const Search = (props) => {
-
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState('')
   // console.log('1',props)
 
   const {
     hotList,
     //数据加载效果还未完成 值改变已经完成已经传过来了
-    enterLoading, 
-    searchList, 
+    enterLoading,
+    didInvalidate,
+    searchList,
   } = props
 
   const {
     getHotKeyWordsDispatch,
-    changeEnterLoadingDispatch, 
-    getSearchResultDispatch, 
+    getSearchResultDispatch,
+    changeSearchResult,
   } = props
 
-  useEffect(()=>{
-    if(!hotList.length){
-      getHotKeyWordsDispatch();
+  useEffect(() => {
+    if (!hotList.length) {
+      getHotKeyWordsDispatch()
     }
-  },[])
+  }, [getHotKeyWordsDispatch, hotList.length])
   const renderHotKey = () => {
-    let list = hotList ? hotList: [];
+    let list = hotList ? hotList : []
     return (
       <ul>
-        {
-          list.map((item,index) => {
-            // console.log("000000",item)
-            return (
-              <li className="item" key={index} onClick={() => setQuery(item)}>
+        {list.map((item, index) => {
+          // console.log("000000",item)
+          return (
+            <li className="item" key={index} onClick={() => setQuery(item)}>
               <span>{item}</span>
             </li>
-            )
-          })
-        }
+          )
+        })}
       </ul>
     )
-  };
-  const renderSearchresult=()=>{
-    let lists = searchList;
+  }
+  const renderSearchresult = () => {
+    let lists = searchList
     // console.log("searchList",searchList);
-    //判断store中的数据是否存在 
-    if(!lists || !lists.length) return;
+    //判断store中的数据是否存在
+    if (!lists || !lists.length) return
     return (
       <List>
-        {
-          lists.map((item, index) => {
-            return (
-              <li key={index} onClick={() => props.history.push(`detail?data=${item}`)}>
-                {item}
-              </li>
-            )
-          })
-        }
+        {lists.map((item, index) => {
+          return (
+            <li
+              key={index}
+              onClick={() => props.history.push(`detail?data=${item}`)}
+            >
+              {item}
+            </li>
+          )
+        })}
       </List>
     )
   }
-  const handleQuery = (q) => {
-    setQuery(q);
-    if(!q) return;
-    changeEnterLoadingDispatch(true);
-    getSearchResultDispatch(q);
-  }
+  const handleQuery = useCallback(
+    (q) => {
+      setQuery(q)
+      // console.log('in handleQuery')
+      if (!q) return
+      // changeEnterLoadingDispatch(true)
+      getSearchResultDispatch(q)
+    },
+    [getSearchResultDispatch]
+  )
+
+  //清空SearchResult
+  useEffect(() => {
+    changeSearchResult([])
+  }, [changeSearchResult, query])
+
   const searchBack = useCallback(() => {
     // setShow(false);
-    props.history.goBack();
+    props.history.goBack()
     // console.log(props)
-  }, []);
+  }, [props.history])
   // console.log("加载",enterLoading);
-    return (
-      <>
-        <SearchBox back={searchBack} newQuery={query} handleQuery={handleQuery}></SearchBox>
+  return (
+    <>
+      <SearchBox
+        back={searchBack}
+        newQuery={query}
+        handleQuery={handleQuery}
+      ></SearchBox>
 
-        <ShortcutWrapper show={!query}>
-          <Scroll>
-            <div>
-              <HotKey>
-                <h1 className="title">热门搜索</h1>
-                {renderHotKey()}
-              </HotKey>
-              {/* <SearchHistory>
-                <h1 className="title">
-                  <span className="text">搜索历史</span>
-                  <span className="clear">
-                    <i className="iconfont">&#xe63d;</i>
-                  </span>
-                </h1>
-                {renderHistoryList()}
-              </SearchHistory> */}
-            </div>
-          </Scroll>
-        </ShortcutWrapper>
-        <ShortcutWrapper show={query}>
-          {/* 将scroll里面的数据(图片)设计为懒加载 */}
-          <Scroll onScorll={forceCheck}>
-            <div>
-              {renderSearchresult()}
-            </div>
-          </Scroll>
-        </ShortcutWrapper>
-    
-      </>
-      )
+      <ShortcutWrapper show={!query}>
+        <Scroll>
+          <div>
+            <HotKey>
+              <h1 className="title">热门搜索</h1>
+              {renderHotKey()}
+            </HotKey>
+            {/* <SearchHistory>
+              <h1 className="title">
+                <span className="text">搜索历史</span>
+                <span className="clear">
+                  <i className="iconfont">&#xe63d;</i>
+                </span>
+              </h1>
+              {renderHistoryList()}
+            </SearchHistory> */}
+          </div>
+        </Scroll>
+      </ShortcutWrapper>
+      <ShortcutWrapper show={query}>
+        {/* 将scroll里面的数据(图片)设计为懒加载 */}
+        <Scroll onScorll={forceCheck}>
+          <div>{renderSearchresult()}</div>
+        </Scroll>
+      </ShortcutWrapper>
+    </>
+  )
 }
 
 const mapStateToProps = (state) => ({
-    hotList:state.search.hotList,
-    enterLoading: state.search.enterLoading,
-    // suggestList: immutableSuggestList, 
-    // songsCount, 
-    searchList: state.search.searchList
+  hotList: state.search.hotList,
+  enterLoading: state.search.enterLoading,
+  // suggestList: immutableSuggestList,
+  // songsCount,
+  searchList: state.search.searchList,
+  didInvalidate: state.search.didInvalidate,
 })
 
-const mapDispatchToProps =(dispatch)=> {
-  return{
+const mapDispatchToProps = (dispatch) => {
+  return {
     getHotKeyWordsDispatch() {
-      dispatch(actionTypes.getHotKeyWords());
+      dispatch(actionTypes.getHotKeyWords())
     },
     changeEnterLoadingDispatch(data) {
       dispatch(actionTypes.changeEnterLoading(data))
     },
-  
+
     getSearchResultDispatch(id) {
-      dispatch(actionTypes.getSearchList(id));
-    }
+      dispatch(actionTypes.getSearchList(id))
+    },
+    changeSearchResult(data) {
+      dispatch(actionTypes.changeSearchResult(data))
+    },
   }
-    
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search)

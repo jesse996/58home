@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Tab, Top, Item } from './HomeService.style'
 function HomeService(props) {
-    const [homeServiceData, sethomeServiceData] = useState([
+    const [homeServiceData] = useState([
         {
             id: 1,
             title: '管道疏通',
@@ -41,7 +41,7 @@ function HomeService(props) {
                 {
                     homeServiceData.map((item, index) => {
                         return (
-                            <li className="homeservice-item" key={index}> 
+                            <li className="homeservice-item" key={index}>
                                 <div className="homeservice-img__box">
                                     <img src={item.img} alt="" className="homeservice-img" />
                                 </div>

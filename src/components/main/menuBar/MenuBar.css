@@ -34,14 +34,12 @@
   font-family: \.PingFangSC-Light;
 }
 .swiper-scrollbar-menu {
-  position: relative;
-  left: 1%;
+  /* position: relative; */
   bottom: 3px;
   z-index: 50;
-  height: 5px;
   width: 0.6481rem /* 70/108 */;
-  left: 46%;
-  height: 0.0926rem /* 10/108 */;
+  margin: 0 auto;
+  height: 0.0926rem;
   background: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }

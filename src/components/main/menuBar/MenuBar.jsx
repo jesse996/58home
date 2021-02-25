@@ -31,7 +31,7 @@ function MenuBar(props) {
                             </div>
 
                         </div>
-                        <div className="swiper-slide" style={{width:'100%'}}>
+                        <div className="swiper-slide" >
                             <div>
                                 <MenuBarItem menuBarData={menuBarData.list3} />
                                 <MenuBarItem menuBarData={menuBarData.list4} />

@@ -3,15 +3,13 @@ import styled from 'styled-components'
 export const RecommendList = styled.div `
     
     display:flex;
-
-    height:10rem;
     width:100%;
     background-color:white;
     box-sizing:border-box;
     flex-flow:wrap;
     justify-content:space-around; 
     padding: 0 .24rem .28rem;
-    margin-bottom:3rem;
+    margin-bottom:1.5rem;
     
 `;
 

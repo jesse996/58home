@@ -50,6 +50,7 @@ export const SearchBoxstyle = styled.div `
             ;
             color: #848c99;
             background-color: #f5f6fa;
+            flex:auto;
         }
     }
     
